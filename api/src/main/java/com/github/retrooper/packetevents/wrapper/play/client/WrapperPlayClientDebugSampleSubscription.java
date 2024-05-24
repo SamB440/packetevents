@@ -27,6 +27,10 @@ public class WrapperPlayClientDebugSampleSubscription extends PacketWrapper<Wrap
 
     private SampleType sampleType;
 
+    private WrapperPlayClientDebugSampleSubscription(WrapperPlayClientDebugSampleSubscription wrapper) {
+        super(wrapper);
+    }
+
     public WrapperPlayClientDebugSampleSubscription(PacketReceiveEvent event) {
         super(event);
     }
@@ -49,6 +53,11 @@ public class WrapperPlayClientDebugSampleSubscription extends PacketWrapper<Wrap
     @Override
     public void copy(WrapperPlayClientDebugSampleSubscription wrapper) {
         this.sampleType = wrapper.sampleType;
+    }
+
+    @Override
+    public WrapperPlayClientDebugSampleSubscription copy() {
+        return new WrapperPlayClientDebugSampleSubscription(this);
     }
 
     public SampleType getSampleType() {

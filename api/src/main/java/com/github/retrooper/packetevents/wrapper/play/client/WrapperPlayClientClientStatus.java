@@ -27,6 +27,10 @@ import com.github.retrooper.packetevents.wrapper.PacketWrapper;
 public class WrapperPlayClientClientStatus extends PacketWrapper<WrapperPlayClientClientStatus> {
     private Action action;
 
+    private WrapperPlayClientClientStatus(WrapperPlayClientClientStatus wrapper) {
+        super(wrapper);
+    }
+
     public WrapperPlayClientClientStatus(PacketReceiveEvent event) {
         super(event);
     }
@@ -53,8 +57,13 @@ public class WrapperPlayClientClientStatus extends PacketWrapper<WrapperPlayClie
     }
 
     @Override
-    public void copy(WrapperPlayClientClientStatus wrapper) {
+    public void copyFrom(WrapperPlayClientClientStatus wrapper) {
         this.action = wrapper.action;
+    }
+
+    @Override
+    public WrapperPlayClientClientStatus copy() {
+        return new WrapperPlayClientClientStatus(this);
     }
 
     public Action getAction() {

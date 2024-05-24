@@ -28,6 +28,10 @@ public class WrapperPlayClientEntityAction extends PacketWrapper<WrapperPlayClie
     private Action action;
     private int jumpBoost;
 
+    private WrapperPlayClientEntityAction(WrapperPlayClientEntityAction wrapper) {
+        super(wrapper);
+    }
+
     public WrapperPlayClientEntityAction(PacketReceiveEvent event) {
         super(event);
     }
@@ -69,6 +73,11 @@ public class WrapperPlayClientEntityAction extends PacketWrapper<WrapperPlayClie
         entityID = wrapper.entityID;
         action = wrapper.action;
         jumpBoost = wrapper.jumpBoost;
+    }
+
+    @Override
+    public WrapperPlayClientEntityAction copy() {
+        return new WrapperPlayClientEntityAction(this);
     }
 
     public int getEntityId() {

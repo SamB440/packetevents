@@ -26,6 +26,10 @@ public class WrapperPlayClientChatCommandUnsigned extends PacketWrapper<WrapperP
 
     private String command;
 
+    private WrapperPlayClientChatCommandUnsigned(WrapperPlayClientChatCommandUnsigned wrapper) {
+        super(wrapper);
+    }
+
     public WrapperPlayClientChatCommandUnsigned(PacketReceiveEvent event) {
         super(event);
     }
@@ -46,8 +50,13 @@ public class WrapperPlayClientChatCommandUnsigned extends PacketWrapper<WrapperP
     }
 
     @Override
-    public void copy(WrapperPlayClientChatCommandUnsigned wrapper) {
+    public void copyFrom(WrapperPlayClientChatCommandUnsigned wrapper) {
         this.command = wrapper.command;
+    }
+
+    @Override
+    public WrapperPlayClientChatCommandUnsigned copy() {
+        return new WrapperPlayClientChatCommandUnsigned(this);
     }
 
     public String getCommand() {

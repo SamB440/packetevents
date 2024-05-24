@@ -31,4 +31,9 @@ public class WrapperPlayClientConfigurationAck extends PacketWrapper<WrapperPlay
     public WrapperPlayClientConfigurationAck() {
         super(PacketType.Play.Client.CONFIGURATION_ACK);
     }
+
+    @Override
+    public WrapperPlayClientConfigurationAck copy() {
+        return new WrapperPlayClientConfigurationAck();
+    }
 }

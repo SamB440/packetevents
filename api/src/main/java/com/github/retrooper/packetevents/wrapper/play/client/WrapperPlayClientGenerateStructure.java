@@ -31,6 +31,10 @@ public class WrapperPlayClientGenerateStructure extends PacketWrapper<WrapperPla
     private int levels;
     private boolean keepJigsaws;
 
+    private WrapperPlayClientGenerateStructure(WrapperPlayClientGenerateStructure wrapper) {
+        super(wrapper);
+    }
+
     public WrapperPlayClientGenerateStructure(PacketReceiveEvent event) {
         super(event);
     }
@@ -61,6 +65,11 @@ public class WrapperPlayClientGenerateStructure extends PacketWrapper<WrapperPla
         this.blockPosition = wrapper.blockPosition;
         this.levels = wrapper.levels;
         this.keepJigsaws = wrapper.keepJigsaws;
+    }
+
+    @Override
+    public WrapperPlayClientGenerateStructure copy() {
+        return new WrapperPlayClientGenerateStructure(this);
     }
 
     /**

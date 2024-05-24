@@ -37,6 +37,10 @@ public class WrapperHandshakingClientHandshake extends PacketWrapper<WrapperHand
     private int serverPort;
     private ConnectionIntention intention;
 
+    private WrapperHandshakingClientHandshake(WrapperHandshakingClientHandshake wrapper) {
+        super(wrapper);
+    }
+
     public WrapperHandshakingClientHandshake(PacketReceiveEvent event) {
         super(event);
     }
@@ -81,12 +85,17 @@ public class WrapperHandshakingClientHandshake extends PacketWrapper<WrapperHand
     }
 
     @Override
-    public void copy(WrapperHandshakingClientHandshake wrapper) {
+    public void copyFrom(WrapperHandshakingClientHandshake wrapper) {
         this.protocolVersion = wrapper.protocolVersion;
         this.clientVersion = wrapper.clientVersion;
         this.serverAddress = wrapper.serverAddress;
         this.serverPort = wrapper.serverPort;
         this.intention = wrapper.intention;
+    }
+
+    @Override
+    public WrapperHandshakingClientHandshake copy() {
+        return new WrapperHandshakingClientHandshake(this);
     }
 
     /**

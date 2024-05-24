@@ -25,6 +25,10 @@ import com.github.retrooper.packetevents.wrapper.PacketWrapper;
 public class WrapperPlayClientCloseWindow extends PacketWrapper<WrapperPlayClientCloseWindow> {
     private int windowID;
 
+    private WrapperPlayClientCloseWindow(WrapperPlayClientCloseWindow wrapper) {
+        super(wrapper);
+    }
+
     public WrapperPlayClientCloseWindow(PacketReceiveEvent event) {
         super(event);
     }
@@ -45,8 +49,13 @@ public class WrapperPlayClientCloseWindow extends PacketWrapper<WrapperPlayClien
     }
 
     @Override
-    public void copy(WrapperPlayClientCloseWindow wrapper) {
+    public void copyFrom(WrapperPlayClientCloseWindow wrapper) {
         this.windowID = wrapper.windowID;
+    }
+
+    @Override
+    public WrapperPlayClientCloseWindow copy() {
+        return new WrapperPlayClientCloseWindow(this);
     }
 
     public int getWindowId() {

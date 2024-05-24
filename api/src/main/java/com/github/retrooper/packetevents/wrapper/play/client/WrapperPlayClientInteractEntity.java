@@ -39,6 +39,10 @@ public class WrapperPlayClientInteractEntity extends PacketWrapper<WrapperPlayCl
     private InteractionHand interactionHand;
     private Optional<Boolean> sneaking;
 
+    private WrapperPlayClientInteractEntity(WrapperPlayClientInteractEntity wrapper) {
+        super(wrapper);
+    }
+
     public WrapperPlayClientInteractEntity(PacketReceiveEvent event) {
         super(event);
     }
@@ -121,6 +125,11 @@ public class WrapperPlayClientInteractEntity extends PacketWrapper<WrapperPlayCl
         this.target = wrapper.target;
         this.interactionHand = wrapper.interactionHand;
         this.sneaking = wrapper.sneaking;
+    }
+
+    @Override
+    public WrapperPlayClientInteractEntity copy() {
+        return new WrapperPlayClientInteractEntity(this);
     }
 
     public int getEntityId() {

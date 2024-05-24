@@ -30,6 +30,10 @@ import net.kyori.adventure.text.Component;
 public class WrapperLoginServerDisconnect extends PacketWrapper<WrapperLoginServerDisconnect> {
     private Component reason;
 
+    private WrapperLoginServerDisconnect(WrapperLoginServerDisconnect wrapper) {
+        super(wrapper);
+    }
+
     public WrapperLoginServerDisconnect(PacketSendEvent event) {
         super(event);
     }
@@ -50,8 +54,13 @@ public class WrapperLoginServerDisconnect extends PacketWrapper<WrapperLoginServ
     }
 
     @Override
-    public void copy(WrapperLoginServerDisconnect wrapper) {
+    public void copyFrom(WrapperLoginServerDisconnect wrapper) {
         this.reason = wrapper.reason;
+    }
+
+    @Override
+    public WrapperLoginServerDisconnect copy() {
+        return new WrapperLoginServerDisconnect(this);
     }
 
     /**

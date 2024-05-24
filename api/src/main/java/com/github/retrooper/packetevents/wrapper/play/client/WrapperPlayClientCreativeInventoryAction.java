@@ -28,6 +28,10 @@ public class WrapperPlayClientCreativeInventoryAction extends PacketWrapper<Wrap
     private int slot;
     private ItemStack itemStack;
 
+    private WrapperPlayClientCreativeInventoryAction(WrapperPlayClientCreativeInventoryAction wrapper) {
+        super(wrapper);
+    }
+
     public WrapperPlayClientCreativeInventoryAction(PacketReceiveEvent event) {
         super(event);
     }
@@ -52,9 +56,14 @@ public class WrapperPlayClientCreativeInventoryAction extends PacketWrapper<Wrap
     }
 
     @Override
-    public void copy(WrapperPlayClientCreativeInventoryAction wrapper) {
+    public void copyFrom(WrapperPlayClientCreativeInventoryAction wrapper) {
         this.slot = wrapper.slot;
         this.itemStack = wrapper.itemStack;
+    }
+
+    @Override
+    public WrapperPlayClientCreativeInventoryAction copy() {
+        return new WrapperPlayClientCreativeInventoryAction(this);
     }
 
     public int getSlot() {

@@ -30,6 +30,10 @@ public class WrapperPlayClientCraftRecipeRequest extends PacketWrapper<WrapperPl
     private @Nullable String recipeModern;
     private boolean makeAll;
 
+    private WrapperPlayClientCraftRecipeRequest(WrapperPlayClientCraftRecipeRequest wrapper) {
+        super(wrapper);
+    }
+
     public WrapperPlayClientCraftRecipeRequest(PacketReceiveEvent event) {
         super(event);
     }
@@ -71,11 +75,16 @@ public class WrapperPlayClientCraftRecipeRequest extends PacketWrapper<WrapperPl
     }
 
     @Override
-    public void copy(WrapperPlayClientCraftRecipeRequest wrapper) {
+    public void copyFrom(WrapperPlayClientCraftRecipeRequest wrapper) {
         this.windowId = wrapper.windowId;
         this.recipeLegacy = wrapper.recipeLegacy;
         this.recipeModern = wrapper.recipeModern;
         this.makeAll = wrapper.makeAll;
+    }
+
+    @Override
+    public WrapperPlayClientCraftRecipeRequest copy() {
+        return new WrapperPlayClientCraftRecipeRequest(this);
     }
 
     public int getWindowId() {

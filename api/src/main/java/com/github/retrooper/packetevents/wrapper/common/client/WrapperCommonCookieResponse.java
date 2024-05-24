@@ -31,6 +31,10 @@ public abstract class WrapperCommonCookieResponse<T extends WrapperCommonCookieR
     private ResourceLocation key;
     private byte @Nullable [] payload;
 
+    protected WrapperCommonCookieResponse(T wrapper) {
+        super(wrapper);
+    }
+
     public WrapperCommonCookieResponse(PacketSendEvent event) {
         super(event);
     }
@@ -54,7 +58,7 @@ public abstract class WrapperCommonCookieResponse<T extends WrapperCommonCookieR
     }
 
     @Override
-    public void copy(T wrapper) {
+    public void copyFrom(T wrapper) {
         this.key = wrapper.getKey();
         this.payload = wrapper.getPayload();
     }

@@ -42,6 +42,10 @@ public class WrapperLoginServerEncryptionRequest extends PacketWrapper<WrapperLo
     private byte[] verifyToken;
     private boolean shouldAuthenticate;
 
+    private WrapperLoginServerEncryptionRequest(WrapperLoginServerEncryptionRequest wrapper) {
+        super(wrapper);
+    }
+
     public WrapperLoginServerEncryptionRequest(PacketSendEvent event) {
         super(event);
     }
@@ -87,11 +91,16 @@ public class WrapperLoginServerEncryptionRequest extends PacketWrapper<WrapperLo
     }
 
     @Override
-    public void copy(WrapperLoginServerEncryptionRequest wrapper) {
+    public void copyFrom(WrapperLoginServerEncryptionRequest wrapper) {
         this.serverID = wrapper.serverID;
         this.publicKeyBytes = wrapper.publicKeyBytes;
         this.verifyToken = wrapper.verifyToken;
         this.shouldAuthenticate = wrapper.shouldAuthenticate;
+    }
+
+    @Override
+    public WrapperLoginServerEncryptionRequest copy() {
+        return new WrapperLoginServerEncryptionRequest(this);
     }
 
     /**

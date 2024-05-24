@@ -26,11 +26,20 @@ import org.jetbrains.annotations.Nullable;
 
 public class WrapperPlayClientCookieResponse extends WrapperCommonCookieResponse<WrapperPlayClientCookieResponse> {
 
+    private WrapperPlayClientCookieResponse(WrapperPlayClientCookieResponse wrapper) {
+        super(wrapper);
+    }
+
     public WrapperPlayClientCookieResponse(PacketSendEvent event) {
         super(event);
     }
 
     public WrapperPlayClientCookieResponse(ResourceLocation key, byte @Nullable [] payload) {
         super(PacketType.Play.Client.COOKIE_RESPONSE, key, payload);
+    }
+
+    @Override
+    public WrapperPlayClientCookieResponse copy() {
+        return new WrapperPlayClientCookieResponse(this);
     }
 }

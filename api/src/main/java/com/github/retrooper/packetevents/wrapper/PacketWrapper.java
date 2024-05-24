@@ -120,6 +120,11 @@ public class PacketWrapper<T extends PacketWrapper<T>> {
         this.packetTypeData = new PacketTypeData(null, packetID);
     }
 
+    protected PacketWrapper(T wrapper) {
+        this(wrapper.getPacketTypeData().getPacketType());
+        copyFrom(wrapper);
+    }
+
     public PacketWrapper(PacketReceiveEvent event) {
         this(event, true);
     }
@@ -228,9 +233,19 @@ public class PacketWrapper<T extends PacketWrapper<T>> {
 
     }
 
-    //TODO Rename to copyFrom, as it copies data from the passed in wrapper.
+    @Deprecated
     public void copy(T wrapper) {
+        this.copyFrom(wrapper);
+    }
 
+    public void copyFrom(T wrapper) {
+
+    }
+
+    public T copy() {
+        final PacketTypeCommon packetType = getPacketTypeData().getPacketType();
+        throw new UnsupportedOperationException("copy() has not been implemented on packet type "
+                + (packetType == null ? "(null? " + getPacketTypeData().getNativePacketId() + ")" : packetType.getName()));
     }
 
     //TODO public void transform(int protocolVersion) {}

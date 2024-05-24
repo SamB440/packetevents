@@ -29,6 +29,10 @@ public class WrapperLoginClientPluginResponse extends PacketWrapper<WrapperLogin
     private boolean successful;
     private byte[] data;
 
+    private WrapperLoginClientPluginResponse(WrapperLoginClientPluginResponse wrapper) {
+        super(wrapper);
+    }
+
     public WrapperLoginClientPluginResponse(PacketReceiveEvent event) {
         super(event);
     }
@@ -61,10 +65,15 @@ public class WrapperLoginClientPluginResponse extends PacketWrapper<WrapperLogin
     }
 
     @Override
-    public void copy(WrapperLoginClientPluginResponse wrapper) {
+    public void copyFrom(WrapperLoginClientPluginResponse wrapper) {
         this.messageID = wrapper.messageID;
         this.successful = wrapper.successful;
         this.data = wrapper.data;
+    }
+
+    @Override
+    public WrapperLoginClientPluginResponse copy() {
+        return new WrapperLoginClientPluginResponse(this);
     }
 
     public int getMessageId() {

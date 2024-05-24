@@ -26,6 +26,10 @@ public class WrapperPlayClientDebugPing extends PacketWrapper<WrapperPlayClientD
 
     private long timestamp;
 
+    private WrapperPlayClientDebugPing(WrapperPlayClientDebugPing wrapper) {
+        super(wrapper);
+    }
+
     public WrapperPlayClientDebugPing(PacketReceiveEvent event) {
         super(event);
     }
@@ -48,6 +52,11 @@ public class WrapperPlayClientDebugPing extends PacketWrapper<WrapperPlayClientD
     @Override
     public void copy(WrapperPlayClientDebugPing wrapper) {
         this.timestamp = wrapper.timestamp;
+    }
+
+    @Override
+    public WrapperPlayClientDebugPing copy() {
+        return new WrapperPlayClientDebugPing(this);
     }
 
     public long getTimestamp() {

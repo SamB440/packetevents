@@ -33,6 +33,10 @@ public class WrapperPlayClientPlayerAbilities extends PacketWrapper<WrapperPlayC
     private Optional<Float> flySpeed;
     private Optional<Float> walkSpeed;
 
+    private WrapperPlayClientPlayerAbilities(WrapperPlayClientPlayerAbilities wrapper) {
+        super(wrapper);
+    }
+
     public WrapperPlayClientPlayerAbilities(PacketReceiveEvent event) {
         super(event);
     }
@@ -111,6 +115,11 @@ public class WrapperPlayClientPlayerAbilities extends PacketWrapper<WrapperPlayC
         creativeMode = wrapper.creativeMode;
         flySpeed = wrapper.flySpeed;
         walkSpeed = wrapper.walkSpeed;
+    }
+
+    @Override
+    public WrapperPlayClientPlayerAbilities copy() {
+        return new WrapperPlayClientPlayerAbilities(this);
     }
 
     public boolean isFlying() {

@@ -29,6 +29,10 @@ public class WrapperPlayClientAdvancementTab extends PacketWrapper<WrapperPlayCl
     private Action action;
     private @Nullable String tabID;
 
+    private WrapperPlayClientAdvancementTab(WrapperPlayClientAdvancementTab wrapper) {
+        super(wrapper);
+    }
+
     public WrapperPlayClientAdvancementTab(PacketReceiveEvent event) {
         super(event);
     }
@@ -48,9 +52,14 @@ public class WrapperPlayClientAdvancementTab extends PacketWrapper<WrapperPlayCl
     }
 
     @Override
-    public void copy(WrapperPlayClientAdvancementTab wrapper) {
+    public void copyFrom(WrapperPlayClientAdvancementTab wrapper) {
         action = wrapper.action;
         tabID = wrapper.tabID;
+    }
+
+    @Override
+    public WrapperPlayClientAdvancementTab copy() {
+        return new WrapperPlayClientAdvancementTab(this);
     }
 
     @Override

@@ -8,6 +8,10 @@ public class WrapperPlayClientChatPreview extends PacketWrapper<WrapperPlayClien
     private int queryId;
     private String message;
 
+    private WrapperPlayClientChatPreview(WrapperPlayClientChatPreview wrapper) {
+        super(wrapper);
+    }
+
     public WrapperPlayClientChatPreview(PacketReceiveEvent event) {
         super(event);
     }
@@ -31,9 +35,14 @@ public class WrapperPlayClientChatPreview extends PacketWrapper<WrapperPlayClien
     }
 
     @Override
-    public void copy(WrapperPlayClientChatPreview wrapper) {
+    public void copyFrom(WrapperPlayClientChatPreview wrapper) {
         queryId = wrapper.queryId;
         message = wrapper.message;
+    }
+
+    @Override
+    public WrapperPlayClientChatPreview copy() {
+        return new WrapperPlayClientChatPreview(this);
     }
 
     public int getQueryId() {

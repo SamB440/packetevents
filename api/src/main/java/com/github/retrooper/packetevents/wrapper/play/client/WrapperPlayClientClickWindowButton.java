@@ -29,6 +29,10 @@ public class WrapperPlayClientClickWindowButton extends PacketWrapper<WrapperPla
     private int windowID;
     private int buttonID;
 
+    private WrapperPlayClientClickWindowButton(WrapperPlayClientClickWindowButton wrapper) {
+        super(wrapper);
+    }
+
     public WrapperPlayClientClickWindowButton(PacketReceiveEvent event) {
         super(event);
     }
@@ -52,9 +56,14 @@ public class WrapperPlayClientClickWindowButton extends PacketWrapper<WrapperPla
     }
 
     @Override
-    public void copy(WrapperPlayClientClickWindowButton wrapper) {
+    public void copyFrom(WrapperPlayClientClickWindowButton wrapper) {
         this.windowID = wrapper.windowID;
         this.buttonID = wrapper.buttonID;
+    }
+
+    @Override
+    public WrapperPlayClientClickWindowButton copy() {
+        return new WrapperPlayClientClickWindowButton(this);
     }
 
     /**

@@ -27,6 +27,10 @@ public class WrapperLoginServerCookieRequest extends PacketWrapper<WrapperLoginS
 
     private ResourceLocation key;
 
+    private WrapperLoginServerCookieRequest(WrapperLoginServerCookieRequest wrapper) {
+        super(wrapper);
+    }
+
     public WrapperLoginServerCookieRequest(PacketSendEvent event) {
         super(event);
     }
@@ -47,8 +51,13 @@ public class WrapperLoginServerCookieRequest extends PacketWrapper<WrapperLoginS
     }
 
     @Override
-    public void copy(WrapperLoginServerCookieRequest wrapper) {
+    public void copyFrom(WrapperLoginServerCookieRequest wrapper) {
         this.key = wrapper.key;
+    }
+
+    @Override
+    public WrapperLoginServerCookieRequest copy() {
+        return new WrapperLoginServerCookieRequest(this);
     }
 
     public ResourceLocation getKey() {

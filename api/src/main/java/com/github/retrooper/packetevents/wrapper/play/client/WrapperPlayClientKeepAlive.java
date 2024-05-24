@@ -31,6 +31,10 @@ import com.github.retrooper.packetevents.wrapper.PacketWrapper;
 public class WrapperPlayClientKeepAlive extends PacketWrapper<WrapperPlayClientKeepAlive> {
     private long id;
 
+    private WrapperPlayClientKeepAlive(WrapperPlayClientKeepAlive wrapper) {
+        super(wrapper);
+    }
+
     public WrapperPlayClientKeepAlive(PacketReceiveEvent event) {
         super(event);
     }
@@ -65,6 +69,11 @@ public class WrapperPlayClientKeepAlive extends PacketWrapper<WrapperPlayClientK
     @Override
     public void copy(WrapperPlayClientKeepAlive wrapper) {
         this.id = wrapper.id;
+    }
+
+    @Override
+    public WrapperPlayClientKeepAlive copy() {
+        return new WrapperPlayClientKeepAlive(this);
     }
 
     /**

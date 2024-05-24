@@ -38,6 +38,10 @@ public class WrapperPlayClientClickWindow extends PacketWrapper<WrapperPlayClien
     private Optional<Map<Integer, ItemStack>> slots;
     private ItemStack carriedItemStack;
 
+    private WrapperPlayClientClickWindow(WrapperPlayClientClickWindow wrapper) {
+        super(wrapper);
+    }
+
     public WrapperPlayClientClickWindow(PacketReceiveEvent event) {
         super(event);
     }
@@ -85,7 +89,7 @@ public class WrapperPlayClientClickWindow extends PacketWrapper<WrapperPlayClien
     }
 
     @Override
-    public void copy(WrapperPlayClientClickWindow wrapper) {
+    public void copyFrom(WrapperPlayClientClickWindow wrapper) {
         this.windowID = wrapper.windowID;
         this.stateID = wrapper.stateID;
         this.slot = wrapper.slot;
@@ -94,6 +98,11 @@ public class WrapperPlayClientClickWindow extends PacketWrapper<WrapperPlayClien
         this.windowClickType = wrapper.windowClickType;
         this.slots = wrapper.slots;
         this.carriedItemStack = wrapper.carriedItemStack;
+    }
+
+    @Override
+    public WrapperPlayClientClickWindow copy() {
+        return new WrapperPlayClientClickWindow(this);
     }
 
     @Override

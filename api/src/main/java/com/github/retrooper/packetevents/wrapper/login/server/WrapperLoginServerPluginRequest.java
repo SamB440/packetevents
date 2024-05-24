@@ -28,6 +28,10 @@ public class WrapperLoginServerPluginRequest extends PacketWrapper<WrapperLoginS
     private String channelName;
     private byte[] data;
 
+    private WrapperLoginServerPluginRequest(WrapperLoginServerPluginRequest wrapper) {
+        super(wrapper);
+    }
+
     public WrapperLoginServerPluginRequest(PacketSendEvent event) {
         super(event);
     }
@@ -54,10 +58,15 @@ public class WrapperLoginServerPluginRequest extends PacketWrapper<WrapperLoginS
     }
 
     @Override
-    public void copy(WrapperLoginServerPluginRequest wrapper) {
+    public void copyFrom(WrapperLoginServerPluginRequest wrapper) {
         this.messageID = wrapper.messageID;
         this.channelName = wrapper.channelName;
         this.data = wrapper.data;
+    }
+
+    @Override
+    public WrapperLoginServerPluginRequest copy() {
+        return new WrapperLoginServerPluginRequest(this);
     }
 
     public int getMessageId() {

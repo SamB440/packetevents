@@ -31,4 +31,9 @@ public class WrapperLoginClientLoginSuccessAck extends PacketWrapper<WrapperLogi
     public WrapperLoginClientLoginSuccessAck() {
         super(PacketType.Login.Client.LOGIN_SUCCESS_ACK);
     }
+
+    @Override
+    public WrapperLoginClientLoginSuccessAck copy() {
+        return new WrapperLoginClientLoginSuccessAck();
+    }
 }

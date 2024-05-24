@@ -34,6 +34,10 @@ public class WrapperLoginClientLoginStart extends PacketWrapper<WrapperLoginClie
     private @Nullable SignatureData signatureData;
     private @Nullable UUID playerUUID;
 
+    private WrapperLoginClientLoginStart(WrapperLoginClientLoginStart wrapper) {
+        super(wrapper);
+    }
+
     public WrapperLoginClientLoginStart(PacketReceiveEvent event) {
         super(event);
     }
@@ -89,10 +93,15 @@ public class WrapperLoginClientLoginStart extends PacketWrapper<WrapperLoginClie
     }
 
     @Override
-    public void copy(WrapperLoginClientLoginStart wrapper) {
+    public void copyFrom(WrapperLoginClientLoginStart wrapper) {
         this.username = wrapper.username;
         this.signatureData = wrapper.signatureData;
         this.playerUUID = wrapper.playerUUID;
+    }
+
+    @Override
+    public WrapperLoginClientLoginStart copy() {
+        return new WrapperLoginClientLoginStart(this);
     }
 
     public String getUsername() {

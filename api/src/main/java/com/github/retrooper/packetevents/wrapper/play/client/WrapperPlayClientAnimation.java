@@ -31,6 +31,10 @@ import com.github.retrooper.packetevents.wrapper.PacketWrapper;
 public class WrapperPlayClientAnimation extends PacketWrapper<WrapperPlayClientAnimation> {
     private InteractionHand interactionHand;
 
+    private WrapperPlayClientAnimation(WrapperPlayClientAnimation wrapper) {
+        super(wrapper);
+    }
+
     public WrapperPlayClientAnimation(PacketReceiveEvent event) {
         super(event);
     }
@@ -50,8 +54,13 @@ public class WrapperPlayClientAnimation extends PacketWrapper<WrapperPlayClientA
     }
 
     @Override
-    public void copy(WrapperPlayClientAnimation wrapper) {
+    public void copyFrom(WrapperPlayClientAnimation wrapper) {
         this.interactionHand = wrapper.interactionHand;
+    }
+
+    @Override
+    public WrapperPlayClientAnimation copy() {
+        return new WrapperPlayClientAnimation(this);
     }
 
     @Override

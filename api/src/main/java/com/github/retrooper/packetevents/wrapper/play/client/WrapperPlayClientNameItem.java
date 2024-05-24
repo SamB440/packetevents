@@ -25,6 +25,10 @@ import com.github.retrooper.packetevents.wrapper.PacketWrapper;
 public class WrapperPlayClientNameItem extends PacketWrapper<WrapperPlayClientNameItem> {
     private String itemName;
 
+    private WrapperPlayClientNameItem(WrapperPlayClientNameItem wrapper) {
+        super(wrapper);
+    }
+
     public WrapperPlayClientNameItem(PacketReceiveEvent event) {
         super(event);
     }
@@ -47,6 +51,11 @@ public class WrapperPlayClientNameItem extends PacketWrapper<WrapperPlayClientNa
     @Override
     public void copy(WrapperPlayClientNameItem wrapper) {
         this.itemName = wrapper.itemName;
+    }
+
+    @Override
+    public WrapperPlayClientNameItem copy() {
+        return new WrapperPlayClientNameItem(this);
     }
 
     public String getItemName() {

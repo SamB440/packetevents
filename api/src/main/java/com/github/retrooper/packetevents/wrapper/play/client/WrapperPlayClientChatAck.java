@@ -28,6 +28,10 @@ public class WrapperPlayClientChatAck extends PacketWrapper<WrapperPlayClientCha
     private LastSeenMessages.LegacyUpdate lastSeenMessages;
     private int offset;
 
+    private WrapperPlayClientChatAck(WrapperPlayClientChatAck wrapper) {
+        super(wrapper);
+    }
+
     public WrapperPlayClientChatAck(PacketReceiveEvent event) {
         super(event);
     }
@@ -61,9 +65,14 @@ public class WrapperPlayClientChatAck extends PacketWrapper<WrapperPlayClientCha
     }
 
     @Override
-    public void copy(WrapperPlayClientChatAck wrapper) {
+    public void copyFrom(WrapperPlayClientChatAck wrapper) {
         this.lastSeenMessages = wrapper.lastSeenMessages;
         this.offset = wrapper.offset;
+    }
+
+    @Override
+    public WrapperPlayClientChatAck copy() {
+        return new WrapperPlayClientChatAck(this);
     }
 
     public int getOffset() {

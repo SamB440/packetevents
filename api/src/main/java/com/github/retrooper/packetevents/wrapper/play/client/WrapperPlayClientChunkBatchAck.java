@@ -26,6 +26,10 @@ public class WrapperPlayClientChunkBatchAck extends PacketWrapper<WrapperPlayCli
 
     private float desiredChunksPerTick;
 
+    private WrapperPlayClientChunkBatchAck(WrapperPlayClientChunkBatchAck wrapper) {
+        super(wrapper);
+    }
+
     public WrapperPlayClientChunkBatchAck(PacketReceiveEvent event) {
         super(event);
     }
@@ -46,8 +50,13 @@ public class WrapperPlayClientChunkBatchAck extends PacketWrapper<WrapperPlayCli
     }
 
     @Override
-    public void copy(WrapperPlayClientChunkBatchAck wrapper) {
+    public void copyFrom(WrapperPlayClientChunkBatchAck wrapper) {
         this.desiredChunksPerTick = wrapper.desiredChunksPerTick;
+    }
+
+    @Override
+    public WrapperPlayClientChunkBatchAck copy() {
+        return new WrapperPlayClientChunkBatchAck(this);
     }
 
     public float getDesiredChunksPerTick() {

@@ -20,6 +20,10 @@ public class WrapperPlayClientChatCommand extends PacketWrapper<WrapperPlayClien
     private @Nullable LastSeenMessages.Update lastSeenMessages;
     private @Nullable LastSeenMessages.LegacyUpdate legacyLastSeenMessages;
 
+    private WrapperPlayClientChatCommand(WrapperPlayClientChatCommand wrapper) {
+        super(wrapper);
+    }
+
     public WrapperPlayClientChatCommand(PacketReceiveEvent event) {
         super(event);
     }
@@ -80,12 +84,17 @@ public class WrapperPlayClientChatCommand extends PacketWrapper<WrapperPlayClien
     }
 
     @Override
-    public void copy(WrapperPlayClientChatCommand wrapper) {
+    public void copyFrom(WrapperPlayClientChatCommand wrapper) {
         this.command = wrapper.command;
         this.messageSignData = wrapper.messageSignData;
         this.signedArguments = wrapper.signedArguments;
         this.lastSeenMessages = wrapper.lastSeenMessages;
         this.legacyLastSeenMessages = wrapper.legacyLastSeenMessages;
+    }
+
+    @Override
+    public WrapperPlayClientChatCommand copy() {
+        return new WrapperPlayClientChatCommand(this);
     }
 
     public String getCommand() {

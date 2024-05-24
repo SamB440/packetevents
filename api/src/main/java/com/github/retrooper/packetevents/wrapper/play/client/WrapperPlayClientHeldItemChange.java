@@ -28,6 +28,10 @@ import com.github.retrooper.packetevents.wrapper.PacketWrapper;
 public class WrapperPlayClientHeldItemChange extends PacketWrapper<WrapperPlayClientHeldItemChange> {
     private int slot;
 
+    private WrapperPlayClientHeldItemChange(WrapperPlayClientHeldItemChange wrapper) {
+        super(wrapper);
+    }
+
     public WrapperPlayClientHeldItemChange(PacketReceiveEvent event) {
         super(event);
     }
@@ -50,6 +54,11 @@ public class WrapperPlayClientHeldItemChange extends PacketWrapper<WrapperPlayCl
     @Override
     public void copy(WrapperPlayClientHeldItemChange wrapper) {
         this.slot = wrapper.slot;
+    }
+
+    @Override
+    public WrapperPlayClientHeldItemChange copy() {
+        return new WrapperPlayClientHeldItemChange(this);
     }
 
     /**

@@ -25,6 +25,10 @@ import com.github.retrooper.packetevents.wrapper.PacketWrapper;
 public class WrapperPlayClientPickItem extends PacketWrapper<WrapperPlayClientPickItem> {
     private int slot;
 
+    private WrapperPlayClientPickItem(WrapperPlayClientPickItem wrapper) {
+        super(wrapper);
+    }
+
     public WrapperPlayClientPickItem(PacketReceiveEvent event) {
         super(event);
     }
@@ -47,6 +51,11 @@ public class WrapperPlayClientPickItem extends PacketWrapper<WrapperPlayClientPi
     @Override
     public void copy(WrapperPlayClientPickItem wrapper) {
         slot = wrapper.slot;
+    }
+
+    @Override
+    public WrapperPlayClientPickItem copy() {
+        return new WrapperPlayClientPickItem(this);
     }
 
     public int getSlot() {

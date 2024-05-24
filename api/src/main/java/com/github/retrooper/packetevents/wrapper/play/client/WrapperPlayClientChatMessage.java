@@ -40,6 +40,10 @@ public class WrapperPlayClientChatMessage extends PacketWrapper<WrapperPlayClien
     private @Nullable LastSeenMessages.Update lastSeenMessages;
     private @Nullable LastSeenMessages.LegacyUpdate legacyLastSeenMessages;
 
+    private WrapperPlayClientChatMessage(WrapperPlayClientChatMessage wrapper) {
+        super(wrapper);
+    }
+
     public WrapperPlayClientChatMessage(PacketReceiveEvent event) {
         super(event);
     }
@@ -102,11 +106,16 @@ public class WrapperPlayClientChatMessage extends PacketWrapper<WrapperPlayClien
     }
 
     @Override
-    public void copy(WrapperPlayClientChatMessage wrapper) {
+    public void copyFrom(WrapperPlayClientChatMessage wrapper) {
         this.message = wrapper.message;
         this.messageSignData = wrapper.messageSignData;
         this.lastSeenMessages = wrapper.lastSeenMessages;
         this.legacyLastSeenMessages = wrapper.legacyLastSeenMessages;
+    }
+
+    @Override
+    public WrapperPlayClientChatMessage copy() {
+        return new WrapperPlayClientChatMessage(this);
     }
 
     /**

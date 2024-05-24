@@ -39,6 +39,10 @@ public class WrapperLoginClientEncryptionResponse extends PacketWrapper<WrapperL
     private byte[] encryptedVerifyToken;
     private SaltSignature saltSignature;
 
+    private WrapperLoginClientEncryptionResponse(WrapperLoginClientEncryptionResponse wrapper) {
+        super(wrapper);
+    }
+
     public WrapperLoginClientEncryptionResponse(PacketReceiveEvent event) {
         super(event);
     }
@@ -84,10 +88,15 @@ public class WrapperLoginClientEncryptionResponse extends PacketWrapper<WrapperL
     }
 
     @Override
-    public void copy(WrapperLoginClientEncryptionResponse wrapper) {
+    public void copyFrom(WrapperLoginClientEncryptionResponse wrapper) {
         this.encryptedSharedSecret = wrapper.encryptedSharedSecret;
         this.encryptedVerifyToken = wrapper.encryptedVerifyToken;
         this.saltSignature = wrapper.saltSignature;
+    }
+
+    @Override
+    public WrapperLoginClientEncryptionResponse copy() {
+        return new WrapperLoginClientEncryptionResponse(this);
     }
 
     public byte[] getEncryptedSharedSecret() {

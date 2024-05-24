@@ -36,6 +36,10 @@ public class WrapperPlayClientEditBook extends PacketWrapper<WrapperPlayClientEd
     private List<String> pages;
     private @Nullable String title;
 
+    private WrapperPlayClientEditBook(WrapperPlayClientEditBook wrapper) {
+        super(wrapper);
+    }
+
     public WrapperPlayClientEditBook(PacketReceiveEvent event) {
         super(event);
     }
@@ -73,6 +77,11 @@ public class WrapperPlayClientEditBook extends PacketWrapper<WrapperPlayClientEd
         this.slot = wrapper.slot;
         this.pages = wrapper.pages;
         this.title = wrapper.title;
+    }
+
+    @Override
+    public WrapperPlayClientEditBook copy() {
+        return new WrapperPlayClientEditBook(this);
     }
 
     public int getSlot() {

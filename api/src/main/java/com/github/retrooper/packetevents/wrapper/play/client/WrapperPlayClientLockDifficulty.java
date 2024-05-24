@@ -25,6 +25,10 @@ import com.github.retrooper.packetevents.wrapper.PacketWrapper;
 public class WrapperPlayClientLockDifficulty extends PacketWrapper<WrapperPlayClientLockDifficulty> {
     private boolean locked;
 
+    private WrapperPlayClientLockDifficulty(WrapperPlayClientLockDifficulty wrapper) {
+        super(wrapper);
+    }
+
     public WrapperPlayClientLockDifficulty(PacketReceiveEvent event) {
         super(event);
     }
@@ -47,6 +51,11 @@ public class WrapperPlayClientLockDifficulty extends PacketWrapper<WrapperPlayCl
     @Override
     public void copy(WrapperPlayClientLockDifficulty wrapper) {
         locked = wrapper.locked;
+    }
+
+    @Override
+    public WrapperPlayClientLockDifficulty copy() {
+        return new WrapperPlayClientLockDifficulty(this);
     }
 
     public boolean isLocked() {

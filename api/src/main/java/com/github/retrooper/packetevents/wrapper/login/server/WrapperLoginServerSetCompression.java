@@ -25,6 +25,10 @@ import com.github.retrooper.packetevents.wrapper.PacketWrapper;
 public class WrapperLoginServerSetCompression extends PacketWrapper<WrapperLoginServerSetCompression> {
     private int threshold;
 
+    private WrapperLoginServerSetCompression(WrapperLoginServerSetCompression wrapper) {
+        super(wrapper);
+    }
+
     public WrapperLoginServerSetCompression(PacketSendEvent event) {
         super(event);
     }
@@ -45,8 +49,13 @@ public class WrapperLoginServerSetCompression extends PacketWrapper<WrapperLogin
     }
 
     @Override
-    public void copy(WrapperLoginServerSetCompression wrapper) {
+    public void copyFrom(WrapperLoginServerSetCompression wrapper) {
         this.threshold = wrapper.threshold;
+    }
+
+    @Override
+    public WrapperLoginServerSetCompression copy() {
+        return new WrapperLoginServerSetCompression(this);
     }
 
     public int getThreshold() {

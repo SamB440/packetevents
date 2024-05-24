@@ -26,6 +26,10 @@ import com.github.retrooper.packetevents.wrapper.PacketWrapper;
 public class WrapperPlayClientChatSessionUpdate extends PacketWrapper<WrapperPlayClientChatSessionUpdate> {
     private RemoteChatSession chatSession;
 
+    private WrapperPlayClientChatSessionUpdate(WrapperPlayClientChatSessionUpdate wrapper) {
+        super(wrapper);
+    }
+
     public WrapperPlayClientChatSessionUpdate(PacketReceiveEvent event) {
         super(event);
     }
@@ -46,8 +50,13 @@ public class WrapperPlayClientChatSessionUpdate extends PacketWrapper<WrapperPla
     }
 
     @Override
-    public void copy(WrapperPlayClientChatSessionUpdate wrapper) {
+    public void copyFrom(WrapperPlayClientChatSessionUpdate wrapper) {
         this.chatSession = wrapper.chatSession;
+    }
+
+    @Override
+    public WrapperPlayClientChatSessionUpdate copy() {
+        return new WrapperPlayClientChatSessionUpdate(this);
     }
 
     public RemoteChatSession getChatSession() {

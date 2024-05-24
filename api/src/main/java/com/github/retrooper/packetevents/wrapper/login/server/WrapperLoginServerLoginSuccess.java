@@ -36,6 +36,10 @@ public class WrapperLoginServerLoginSuccess extends PacketWrapper<WrapperLoginSe
     private UserProfile userProfile;
     private boolean strictErrorHandling;
 
+    private WrapperLoginServerLoginSuccess(WrapperLoginServerLoginSuccess wrapper) {
+        super(wrapper);
+    }
+
     public WrapperLoginServerLoginSuccess(PacketSendEvent event) {
         super(event);
     }
@@ -105,8 +109,13 @@ public class WrapperLoginServerLoginSuccess extends PacketWrapper<WrapperLoginSe
     }
 
     @Override
-    public void copy(WrapperLoginServerLoginSuccess wrapper) {
+    public void copyFrom(WrapperLoginServerLoginSuccess wrapper) {
         this.userProfile = wrapper.userProfile;
+    }
+
+    @Override
+    public WrapperLoginServerLoginSuccess copy() {
+        return new WrapperLoginServerLoginSuccess(this);
     }
 
     public UserProfile getUserProfile() {

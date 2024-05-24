@@ -39,6 +39,10 @@ public class WrapperPlayClientPlayerBlockPlacement extends PacketWrapper<Wrapper
     private Optional<Boolean> insideBlock;
     int sequence;
 
+    private WrapperPlayClientPlayerBlockPlacement(WrapperPlayClientPlayerBlockPlacement wrapper) {
+        super(wrapper);
+    }
+
     public WrapperPlayClientPlayerBlockPlacement(PacketReceiveEvent event) {
         super(event);
     }
@@ -140,6 +144,11 @@ public class WrapperPlayClientPlayerBlockPlacement extends PacketWrapper<Wrapper
         itemStack = wrapper.itemStack;
         insideBlock = wrapper.insideBlock;
         sequence = wrapper.sequence;
+    }
+
+    @Override
+    public WrapperPlayClientPlayerBlockPlacement copy() {
+        return new WrapperPlayClientPlayerBlockPlacement(this);
     }
 
     public InteractionHand getHand() {
