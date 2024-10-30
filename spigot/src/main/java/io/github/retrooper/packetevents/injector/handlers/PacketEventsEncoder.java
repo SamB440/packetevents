@@ -34,6 +34,7 @@ import io.github.retrooper.packetevents.injector.connection.ServerConnectionInit
 import io.github.retrooper.packetevents.util.SpigotReflectionUtil;
 import io.github.retrooper.packetevents.util.folia.FoliaScheduler;
 import io.github.retrooper.packetevents.util.viaversion.CustomPipelineUtil;
+import io.github.retrooper.packetevents.util.viaversion.ViaVersionUtil;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler;
@@ -192,7 +193,7 @@ public class PacketEventsEncoder extends MessageToMessageEncoder<ByteBuf> {
         int peEncoderIndex = ctx.pipeline().names().indexOf(PacketEvents.ENCODER_NAME);
         if (peEncoderIndex == -1) return false;
 
-        if (PacketEvents.getAPI().getSettings().bypassViaVersion() && user.getClientVersion().isOlderThanOrEquals(ClientVersion.V_1_7_10)) {
+        if (PacketEvents.getAPI().getSettings().bypassViaVersion() && ViaVersionUtil.isAvailable() && user.getClientVersion().isOlderThanOrEquals(ClientVersion.V_1_7_10)) {
             return false;
         }
 

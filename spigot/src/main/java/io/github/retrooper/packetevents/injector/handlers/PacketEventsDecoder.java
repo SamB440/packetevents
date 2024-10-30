@@ -29,6 +29,7 @@ import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerDi
 import io.github.retrooper.packetevents.injector.connection.ServerConnectionInitializer;
 import io.github.retrooper.packetevents.util.folia.FoliaScheduler;
 import io.github.retrooper.packetevents.util.SpigotReflectionUtil;
+import io.github.retrooper.packetevents.util.viaversion.ViaVersionUtil;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageDecoder;
@@ -108,7 +109,7 @@ public class PacketEventsDecoder extends MessageToMessageDecoder<ByteBuf> {
             return;
         }
 
-        if (!PacketEvents.getAPI().getSettings().bypassViaVersion()) {
+        if (!PacketEvents.getAPI().getSettings().bypassViaVersion() && ViaVersionUtil.isAvailable()) {
             // Via changes the order of handlers in this event, so we must respond to Via changing their stuff
             ServerConnectionInitializer.relocateHandlers(ctx.channel(), this, user);
         }

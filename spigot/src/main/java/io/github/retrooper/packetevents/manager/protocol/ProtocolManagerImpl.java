@@ -25,6 +25,7 @@ import com.github.retrooper.packetevents.protocol.ProtocolVersion;
 import com.github.retrooper.packetevents.protocol.player.ClientVersion;
 import com.github.retrooper.packetevents.protocol.player.User;
 import io.github.retrooper.packetevents.util.protocolsupport.ProtocolSupportUtil;
+import io.github.retrooper.packetevents.util.viaversion.ViaVersionUtil;
 import io.netty.buffer.ByteBuf;
 
 import java.util.List;
@@ -53,7 +54,12 @@ public class ProtocolManagerImpl implements ProtocolManager {
             if (ProtocolSupportUtil.isAvailable() && byteBuf instanceof ByteBuf) {
                 ((ByteBuf) byteBuf).retain();
             }
-            ChannelHelper.writeAndFlush(channel, byteBuf);
+
+            if (PacketEvents.getAPI().getSettings().bypassViaVersion() && ViaVersionUtil.isAvailable()) {
+                ChannelHelper.writeAndFlushInContext(channel, "via-encoder", byteBuf);
+            } else {
+                ChannelHelper.writeAndFlush(channel, byteBuf);
+            }
         } else {
             ((ByteBuf) byteBuf).release();
         }
@@ -79,7 +85,12 @@ public class ProtocolManagerImpl implements ProtocolManager {
             if (ProtocolSupportUtil.isAvailable() && byteBuf instanceof ByteBuf) {
                 ((ByteBuf) byteBuf).retain();
             }
-            ChannelHelper.write(channel, byteBuf);
+
+            if (PacketEvents.getAPI().getSettings().bypassViaVersion() && ViaVersionUtil.isAvailable()) {
+                ChannelHelper.writeInContext(channel, "via-encoder", byteBuf);
+            } else {
+                ChannelHelper.write(channel, byteBuf);
+            }
         } else {
             ((ByteBuf) byteBuf).release();
         }
